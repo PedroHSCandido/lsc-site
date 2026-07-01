@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSC — Lead Smart Connect | Ecossistema de IA Comercial</title>
+<meta name="description" content="Atendimento automático que não perde lead, campanhas que custam menos por conversão e rastreamento de ponta a ponta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════ RESET & VARS ═══════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#7c3aed;--purple-dark:#5b21b6;--purple-light:#a78bfa;
+  --blue:#2d7eff;--cyan:#06b6d4;
+  --gradient-primary:linear-gradient(135deg,#7c3aed 0%,#2d7eff 100%);
+  --gradient-cover:linear-gradient(180deg,#0d0d22 0%,#1a1a3a 50%,#252550 100%);
+  --bg-white:#ffffff;--bg-page:#f8f9fc;--bg-card-alt:#f1f3f8;
+  --border-light:#e2e5ed;
+  --text-primary:#1a1a2e;--text-secondary:#4a4a6a;--text-muted:#7a7a9a;
+  --shadow-md:0 4px 12px rgba(15,17,31,0.06);
+  --shadow-lg:0 8px 24px rgba(15,17,31,0.08);
+  --shadow-purple-sm:0 4px 12px rgba(124,58,237,0.15);
+  --shadow-purple-md:0 8px 24px rgba(124,58,237,0.25);
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+body{
+  font-family:'Manrope',sans-serif;font-size:16px;line-height:1.65;
+  color:var(--text-primary);background:var(--bg-white);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4,h5,h6{font-family:'Sora',sans-serif}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+img{max-width:100%;display:block}
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+
+/* ═══════════════════════ GRAIN OVERLAY ═══════════════════════ */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.024;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:200px;
+}
+
+/* ═══════════════════════ GRADIENT TEXT ═══════════════════════ */
+.gradient-text{
+  background:var(--gradient-primary);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ═══════════════════════ SPLITTING CHARS ═══════════════════════ */
+.hero-title .char{
+  display:inline-block;opacity:0;transform:translateY(50px) rotateX(-40deg);
+  transform-origin:bottom center;
+}
+.hero-title .whitespace{width:0.3em}
+.hero-title .word{display:inline-block;overflow:hidden;vertical-align:top}
+
+/* ═══════════════════════ BUTTONS ═══════════════════════ */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;position:relative;
+  background:var(--gradient-primary);color:#fff;border:none;border-radius:12px;
+  padding:15px 26px;font-weight:600;font-size:15px;font-family:'Manrope',sans-serif;
+  box-shadow:var(--shadow-purple-md);cursor:pointer;
+  transition:transform .25s var(--ease-spring),box-shadow .3s;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.2) 0%,transparent 50%);
+  opacity:0;transition:opacity .3s;
+}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px rgba(124,58,237,0.4)}
+.btn-primary:hover::before{opacity:1}
+.btn-primary:active{transform:translateY(-1px) scale(0.98)}
+
+.btn-glass{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px;padding:13px 20px;color:#fff;font-weight:500;font-size:15px;
+  font-family:'Manrope',sans-serif;cursor:pointer;
+  transition:background .25s,border-color .25s,transform .25s var(--ease-spring);
+}
+.btn-glass:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3);transform:translateY(-2px)}
+
+.section-badge{
+  display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;
+}
+
+/* ═══════════════════════ NAV ═══════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  padding:18px 0;transition:all .4s var(--ease-out-expo);
+}
+.nav.scrolled{
+  background:rgba(13,13,34,0.82);backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  box-shadow:0 1px 0 rgba(255,255,255,0.06),0 8px 32px rgba(0,0,0,0.3);padding:10px 0;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center}
+.nav-logo-img{height:36px;width:auto;transition:opacity .3s}
+.nav-logo:hover .nav-logo-img{opacity:0.85}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{
+  font-size:14px;font-weight:500;color:rgba(255,255,255,0.65);
+  transition:color .25s;position:relative;
+}
+.nav-links a:not(.nav-cta)::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  background:var(--gradient-primary);border-radius:1px;transition:width .3s var(--ease-out-expo);
+}
+.nav-links a:not(.nav-cta):hover{color:#fff}
+.nav-links a:not(.nav-cta):hover::after{width:100%}
+.nav-cta{margin-left:16px}
+.nav-toggle{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:4px}
+
+/* ═══════════════════════ HERO ═══════════════════════ */
+#hero{
+  background:var(--gradient-cover);
+  padding:168px 0 140px;position:relative;overflow:hidden;
+}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;will-change:transform}
+.hero-orb-1{width:700px;height:700px;background:rgba(124,58,237,0.2);top:-250px;left:-150px}
+.hero-orb-2{width:550px;height:550px;background:rgba(45,126,255,0.14);bottom:-200px;right:-120px}
+.hero-orb-3{width:300px;height:300px;background:rgba(6,182,212,0.1);top:30%;left:45%}
+
+/* Dot grid pattern */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;z-index:1;
+}
+
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:2}
+.hero-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--purple-light);margin-bottom:24px;
+  display:inline-flex;align-items:center;gap:10px;
+  opacity:0;
+}
+.hero-eyebrow::before{
+  content:'';width:24px;height:2px;background:var(--gradient-primary);border-radius:1px;
+}
+.hero-title{
+  font-family:'Sora',sans-serif;font-size:clamp(40px,5.2vw,76px);
+  font-weight:600;line-height:1.0;letter-spacing:-0.04em;color:#fff;margin-bottom:24px;
+  perspective:600px;
+}
+.hero-sub{color:rgba(255,255,255,0.6);font-size:17px;line-height:1.7;margin-bottom:36px;max-width:520px;opacity:0}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;opacity:0}
+.hero-proof{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.5);font-size:13px;font-weight:500;opacity:0}
+.hero-proof-dot{
+  width:8px;height:8px;border-radius:50%;background:#22c55e;
+  box-shadow:0 0 8px rgba(34,197,94,0.6);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 8px rgba(34,197,94,0.6)}50%{box-shadow:0 0 16px rgba(34,197,94,0.9)}}
+
+/* Hero visual — canvas + floating card */
+.hero-visual{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center}
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+
+.scroll-indicator{
+  text-align:center;margin-top:72px;font-size:11px;letter-spacing:0.15em;
+  text-transform:uppercase;color:rgba(255,255,255,0.25);position:relative;z-index:2;
+  animation:scrollBounce 2.5s ease-in-out infinite;
+}
+@keyframes scrollBounce{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(8px);opacity:.5}}
+
+/* ═══════════════════════ LOGOS ═══════════════════════ */
+#logos{
+  background:var(--bg-white);border-bottom:1px solid var(--border-light);
+  padding:64px 0;overflow:hidden;
+}
+.logos-label{
+  text-align:center;font-size:11px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;color:#9a9ab8;margin-bottom:40px;
+}
+.logos-track-wrapper{position:relative;overflow:hidden}
+.logos-track-wrapper::before,.logos-track-wrapper::after{
+  content:'';position:absolute;top:0;bottom:0;width:140px;z-index:2;pointer-events:none;
+}
+.logos-track-wrapper::before{left:0;background:linear-gradient(90deg,#fff,transparent)}
+.logos-track-wrapper::after{right:0;background:linear-gradient(270deg,#fff,transparent)}
+.logos-track{
+  display:flex;gap:64px;align-items:center;
+  animation:scrollLogos 32s linear infinite;width:max-content;
+}
+.logos-track:hover{animation-play-state:paused}
+.logos-track span{
+  font-family:'Sora',sans-serif;font-size:18px;font-weight:600;
+  color:#b0b0c8;white-space:nowrap;opacity:.5;
+  transition:opacity .3s,color .3s;
+}
+.logos-track span:hover{opacity:.85;color:var(--purple)}
+@keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ═══════════════════════ RETORNO ═══════════════════════ */
+#retorno{
+  background:#fff;position:relative;padding:100px 0;overflow:hidden;
+}
+#retorno::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:1100px;height:520px;
+  background:radial-gradient(ellipse,rgba(124,58,237,0.06),transparent 70%);
+  pointer-events:none;
+}
+.retorno-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.retorno-h2{font-size:clamp(32px,4vw,56px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
+.retorno-desc{color:var(--text-secondary);font-size:16px;line-height:1.7;max-width:480px}
+.retorno-items{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.retorno-item{
+  padding:28px 24px;border-top:1px solid var(--border-light);
+  transition:all .3s var(--ease-out-expo);cursor:default;position:relative;
+}
+.retorno-item::before{
+  content:'';position:absolute;top:0;left:0;width:0;height:2px;
+  background:var(--gradient-primary);transition:width .4s var(--ease-out-expo);
+}
+.retorno-item:hover{background:var(--bg-card-alt);transform:translateY(-2px)}
+.retorno-item:hover::before{width:100%}
+.retorno-item-num{font-size:11px;color:var(--text-muted);margin-bottom:8px;font-weight:600;font-variant-numeric:tabular-nums}
+.retorno-item-title{font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.3}
+
+/* ═══════════════════════ FEATURES / TABS ═══════════════════════ */
+#quebra{background:var(--bg-white);padding:88px 0}
+.features-header{text-align:center;max-width:700px;margin:0 auto 56px}
+.features-h2{font-size:clamp(32px,4vw,56px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;margin-bottom:16px}
+.features-sub{color:var(--text-secondary);font-size:16px}
+.tabs-nav{
+  display:flex;gap:0;border-bottom:2px solid var(--border-light);margin-bottom:48px;
+  overflow-x:auto;position:relative;
+}
+.tab-btn{
+  flex:1;min-width:140px;padding:18px 8px;text-align:center;background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-size:14px;font-weight:500;color:var(--text-muted);
+  transition:color .3s,border-color .3s;position:relative;
+}
+.tab-btn.active{color:var(--purple);border-bottom-color:var(--purple)}
+.tab-btn:hover{color:var(--text-primary)}
+.tab-btn-num{display:block;font-size:11px;color:var(--text-muted);margin-bottom:4px;font-weight:700;font-family:'Sora',sans-serif}
+.tab-btn.active .tab-btn-num{color:var(--purple-light)}
+
+/* Tab panel transition */
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+
+.tab-title{font-family:'Sora',sans-serif;font-size:28px;font-weight:600;margin-bottom:16px;color:var(--text-primary);line-height:1.2}
+.tab-desc{color:var(--text-secondary);font-size:16px;line-height:1.7}
+.tab-mockup{
+  background:var(--bg-card-alt);border:1px solid var(--border-light);border-radius:20px;
+  padding:28px;min-height:240px;position:relative;overflow:hidden;
+  transition:box-shadow .3s;
+}
+.tab-mockup:hover{box-shadow:var(--shadow-lg)}
+.tab-mockup::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--gradient-primary);border-radius:20px 20px 0 0;
+}
+.mock-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 12px;border-bottom:1px solid var(--border-light);font-size:14px;
+  border-radius:8px;transition:background .2s;
+}
+.mock-row:hover{background:rgba(124,58,237,0.04)}
+.mock-row:last-child{border-bottom:none}
+.mock-name{font-weight:500;color:var(--text-primary)}
+.mock-value{font-family:'Sora',sans-serif;font-weight:600;color:var(--purple)}
+.mock-tag{display:inline-block;padding:4px 12px;border-radius:8px;font-size:11px;font-weight:600}
+.mock-tag-hot{background:rgba(239,68,68,0.1);color:#ef4444}
+.mock-tag-warm{background:rgba(245,158,11,0.1);color:#f59e0b}
+.mock-tag-close{background:rgba(34,197,94,0.1);color:#22c55e}
+.mock-chat{display:flex;flex-direction:column;gap:12px}
+.mock-bubble{max-width:80%;padding:12px 16px;border-radius:16px;font-size:13px;line-height:1.5}
+.mock-bubble-user{
+  background:var(--bg-white);border:1px solid var(--border-light);
+  align-self:flex-end;color:var(--text-primary);border-bottom-right-radius:4px;
+}
+.mock-bubble-ai{
+  background:var(--gradient-primary);color:#fff;align-self:flex-start;
+  border-bottom-left-radius:4px;box-shadow:0 4px 12px rgba(124,58,237,0.2);
+}
+.mock-bubble-system{
+  background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.12);
+  align-self:center;color:var(--purple);font-size:12px;font-weight:600;
+}
+.mock-campaign{display:flex;flex-direction:column;gap:10px}
+.mock-campaign-item{
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--bg-white);border:1px solid var(--border-light);border-radius:14px;
+  padding:16px 18px;transition:transform .2s var(--ease-spring),box-shadow .2s;
+}
+.mock-campaign-item:hover{transform:translateX(4px);box-shadow:var(--shadow-md)}
+.mock-campaign-name{font-size:13px;font-weight:500}
+.mock-campaign-status{display:flex;align-items:center;gap:8px}
+.mock-campaign-dot{width:6px;height:6px;border-radius:50%;background:#22c55e}
+.mock-campaign-rate{font-size:13px;font-weight:600;color:var(--purple)}
+.mock-notif{
+  background:var(--bg-white);border:1px solid var(--border-light);border-radius:16px;
+  padding:28px;text-align:center;
+}
+.mock-notif-title{font-size:12px;color:var(--text-muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.08em}
+.mock-notif-body{font-size:16px;font-weight:600;margin-bottom:16px}
+.mock-notif-badge{
+  display:inline-block;padding:8px 20px;border-radius:10px;font-size:13px;font-weight:600;
+  background:rgba(34,197,94,0.12);color:#22c55e;
+  animation:badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.2)}50%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
+
+/* ═══════════════════════ CASES ═══════════════════════ */
+#cases{background:var(--bg-page);padding:88px 0}
+.cases-header{text-align:center;max-width:600px;margin:0 auto 56px}
+.cases-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px}
+.cases-sub{color:var(--text-secondary);font-size:16px}
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.case-card{
+  background:#fff;border:1px solid var(--border-light);border-radius:24px;
+  padding:32px;box-shadow:var(--shadow-md);
+  transition:all .4s var(--ease-out-expo);
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.case-card::before{
+  content:'';position:absolute;inset:-1px;border-radius:24px;padding:1px;
+  background:linear-gradient(135deg,transparent 40%,rgba(124,58,237,0.2),rgba(45,126,255,0.15));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .4s;pointer-events:none;
+}
+.case-card:hover{box-shadow:0 20px 50px rgba(124,58,237,0.12);transform:translateY(-6px)}
+.case-card:hover::before{opacity:1}
+.case-tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--purple);background:rgba(124,58,237,0.08);
+  padding:5px 12px;border-radius:8px;margin-bottom:16px;align-self:flex-start;
+}
+.case-sector{font-size:13px;color:var(--text-muted);margin-bottom:8px;font-weight:500}
+.case-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:600;margin-bottom:10px;line-height:1.3}
+.case-desc{color:var(--text-secondary);font-size:14px;line-height:1.65;margin-bottom:24px;flex:1}
+.case-metrics{display:flex;gap:0;border-top:1px solid var(--border-light);padding-top:20px}
+.case-metric{flex:1;text-align:center}
+.case-metric:not(:last-child){border-right:1px solid var(--border-light)}
+.case-metric-value{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--text-primary)}
+.case-metric-label{font-size:11px;color:var(--text-muted);margin-top:2px}
+
+/* ═══════════════════════ FRENTES ═══════════════════════ */
+#frentes{background:var(--bg-white);padding:88px 0}
+.frentes-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;align-items:end}
+.frentes-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em}
+.frentes-desc{color:var(--text-secondary);font-size:16px;line-height:1.7}
+.frentes-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-bottom:1px solid var(--border-light);border-right:1px solid var(--border-light);
+}
+.frente-item{
+  padding:32px 24px;
+  border-top:1px solid var(--border-light);border-left:1px solid var(--border-light);
+  transition:all .3s var(--ease-out-expo);position:relative;
+}
+.frente-item::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,58,237,0.04),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.frente-item:hover{transform:scale(1.02)}
+.frente-item:hover::after{opacity:1}
+.frente-num{font-size:11px;color:var(--purple-light);font-weight:700;margin-bottom:10px;position:relative;z-index:1;font-family:'Sora',sans-serif}
+.frente-title{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px;color:var(--text-primary);position:relative;z-index:1}
+.frente-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;position:relative;z-index:1}
+
+/* ═══════════════════════ PROCESSO ═══════════════════════ */
+#processo{background:var(--bg-page);padding:88px 0}
+.processo-header{text-align:center;max-width:600px;margin:0 auto 56px}
+.processo-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px}
+.processo-sub{color:var(--text-secondary);font-size:16px}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative}
+.timeline::before{
+  content:'';position:absolute;top:40px;left:calc(16.66% + 12px);right:calc(16.66% + 12px);
+  height:2px;background:var(--border-light);
+}
+.timeline-node{text-align:center;position:relative;padding:0 12px}
+.timeline-dot{
+  width:20px;height:20px;border-radius:50%;border:2px solid var(--border-light);
+  background:#fff;margin:30px auto 24px;position:relative;z-index:2;transition:all .3s;
+}
+.timeline-card{
+  background:#fff;border:1px solid var(--border-light);border-radius:20px;
+  padding:28px 24px;box-shadow:var(--shadow-md);transition:all .4s var(--ease-out-expo);
+}
+.timeline-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.timeline-node.active .timeline-dot{
+  border-color:var(--purple);background:var(--purple);
+  box-shadow:0 0 0 6px rgba(124,58,237,0.2);
+}
+.timeline-node.active .timeline-card{
+  background:var(--gradient-primary);border-color:transparent;color:#fff;
+  box-shadow:0 12px 40px rgba(124,58,237,0.3);
+}
+.timeline-phase{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.timeline-node.active .timeline-phase{color:rgba(255,255,255,0.7)}
+.timeline-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:600;margin-bottom:4px}
+.timeline-tag{font-size:12px;font-weight:500;margin-bottom:14px}
+.timeline-node:not(.active) .timeline-tag{color:var(--text-muted)}
+.timeline-node.active .timeline-tag{color:rgba(255,255,255,0.65)}
+.timeline-desc{font-size:14px;line-height:1.6}
+.timeline-node:not(.active) .timeline-desc{color:var(--text-secondary)}
+.timeline-node.active .timeline-desc{color:rgba(255,255,255,0.85)}
+
+/* ═══════════════════════ GARANTIA ═══════════════════════ */
+#garantia{
+  background:var(--bg-white);
+  border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);
+  padding:72px 0;
+}
+.garantia-grid{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start}
+.garantia-h2{font-size:clamp(24px,3vw,40px);font-weight:600;line-height:1.15;letter-spacing:-0.02em}
+.garantia-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.garantia-pillar{padding:24px;border-radius:16px;transition:all .3s var(--ease-out-expo)}
+.garantia-pillar:hover{background:var(--bg-card-alt);transform:translateY(-4px)}
+.garantia-pillar-icon{
+  width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,0.08);
+  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;
+}
+.garantia-pillar-title{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px}
+.garantia-pillar-desc{font-size:14px;color:var(--text-secondary);line-height:1.6}
+
+/* ═══════════════════════ FAQ ═══════════════════════ */
+#faq{background:var(--bg-white);padding:88px 0}
+.faq-header{text-align:center;max-width:600px;margin:0 auto 56px}
+.faq-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;margin-bottom:12px}
+.faq-sub{color:var(--text-secondary);font-size:16px}
+.faq-list{max-width:800px;margin:0 auto}
+.faq-item{border-top:1px solid var(--border-light)}
+.faq-question{
+  display:flex;justify-content:space-between;align-items:center;
+  width:100%;padding:24px 0;background:none;border:none;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-size:16px;font-weight:500;color:var(--text-primary);
+  text-align:left;gap:16px;transition:color .2s;
+}
+.faq-question:hover{color:var(--purple)}
+.faq-icon{
+  width:28px;height:28px;border-radius:8px;background:var(--bg-card-alt);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:400;color:var(--text-muted);
+  transition:transform .4s var(--ease-out-expo),background .3s,color .3s;flex-shrink:0;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:rgba(124,58,237,0.1);color:var(--purple)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .5s var(--ease-out-expo)}
+.faq-answer-inner{padding:0 0 24px;color:var(--text-secondary);font-size:15px;line-height:1.7}
+.faq-item.open .faq-answer{max-height:300px}
+
+/* ═══════════════════════ CTA FINAL ═══════════════════════ */
+#cta-final{
+  background:
+    radial-gradient(1200px 600px at 50% -20%,rgba(124,58,237,0.18),transparent 60%),
+    linear-gradient(180deg,#0a0a1f 0%,#0d0d22 100%);
+  padding:140px 0;color:#fff;position:relative;overflow:hidden;
+}
+#cta-final::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;
+}
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;position:relative;z-index:2}
+.cta-h2{font-family:'Sora',sans-serif;font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;margin-bottom:16px}
+.cta-sub{color:rgba(255,255,255,0.58);font-size:16px;line-height:1.7;margin-bottom:32px}
+.cta-trust{display:flex;flex-direction:column;gap:14px}
+.cta-trust-item{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,0.5)}
+.cta-trust-check{
+  width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,0.15);
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#22c55e;font-size:12px;font-weight:700;flex-shrink:0;
+}
+.cta-form{
+  background:rgba(30,25,60,0.5);border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;padding:40px;position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 24px 60px rgba(0,0,0,0.5);
+}
+.cta-form::before{
+  content:'';position:absolute;inset:-1px;border-radius:24px;padding:1px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.1),transparent 40%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);margin-bottom:6px}
+.form-input,.form-select{
+  width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:13px 16px;color:#fff;font-family:'Manrope',sans-serif;
+  font-size:14px;outline:none;transition:border-color .3s,box-shadow .3s,background .3s;
+}
+.form-input::placeholder{color:rgba(255,255,255,0.25)}
+.form-input:focus,.form-select:focus{
+  border-color:rgba(124,58,237,0.5);box-shadow:0 0 0 3px rgba(124,58,237,0.1);
+  background:rgba(255,255,255,0.06);
+}
+.form-select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;padding-right:40px;
+}
+.form-select option{background:#1a1a3a;color:#fff}
+.form-radios{display:flex;flex-wrap:wrap;gap:8px}
+.form-radio{
+  display:flex;align-items:center;gap:6px;
+  padding:10px 16px;border-radius:10px;cursor:pointer;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  font-size:13px;color:rgba(255,255,255,0.55);transition:all .25s var(--ease-out-expo);
+}
+.form-radio:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.06)}
+.form-radio:has(input:checked){
+  border-color:var(--purple);background:rgba(124,58,237,0.15);color:#fff;
+  box-shadow:0 0 0 1px rgba(124,58,237,0.3);
+}
+.form-radio input{display:none}
+.form-submit{width:100%;margin-top:8px;padding:16px;font-size:16px;border:none}
+.form-footer{text-align:center;margin-top:16px;font-size:12px;color:rgba(255,255,255,0.3)}
+
+/* ═══════════════════════ FOOTER ═══════════════════════ */
+.footer{
+  background:#0d0d22;border-top:1px solid rgba(255,255,255,0.06);
+  padding:80px 0 40px;color:rgba(255,255,255,0.78);
+}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand-desc{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.6;margin:16px 0 20px;max-width:280px}
+.footer-socials{display:flex;gap:12px}
+.footer-social{
+  width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.45);transition:all .25s var(--ease-spring);
+}
+.footer-social:hover{
+  background:rgba(124,58,237,0.25);color:#fff;
+  transform:translateY(-2px);box-shadow:0 4px 12px rgba(124,58,237,0.2);
+}
+.footer-col-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:600;color:#fff;margin-bottom:20px}
+.footer-col a{
+  display:block;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:12px;
+  transition:color .25s,transform .25s;
+}
+.footer-col a:hover{color:#fff;transform:translateX(4px)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  font-size:13px;color:rgba(255,255,255,0.3);
+}
+.footer-bottom-links{display:flex;gap:20px}
+.footer-bottom-links a{color:rgba(255,255,255,0.3);transition:color .2s}
+.footer-bottom-links a:hover{color:rgba(255,255,255,0.6)}
+
+/* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media(max-width:1024px){
+  .hero-grid,.retorno-grid,.tab-panel.active,.cta-grid,.garantia-grid,.frentes-header{grid-template-columns:1fr}
+  .cases-grid,.frentes-grid,.garantia-pillars{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:1fr}
+  .timeline::before{display:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{
+    display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(13,13,34,0.97);flex-direction:column;justify-content:center;
+    align-items:center;gap:28px;z-index:100;
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{font-size:20px;font-weight:600}
+  .nav-links a:not(.nav-cta)::after{display:none}
+  .nav-cta{margin-left:0;margin-top:12px}
+  .nav-toggle{display:block;z-index:101}
+  #hero{padding:120px 0 80px}
+  .hero-title{font-size:clamp(32px,8vw,48px)}
+  .hero-visual{min-height:320px}
+  .cases-grid,.frentes-grid,.retorno-items,.garantia-pillars{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .tabs-nav{gap:0}
+  .tab-btn{min-width:auto;font-size:12px;padding:14px 4px}
+  #cta-final{padding:80px 0}
+  .cta-form{padding:28px 20px}
+  .hero-orb-3{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+<div class="container nav-inner">
+  <a href="#hero" class="nav-logo">
+    <img src="Logo/Banner Branco.png" alt="LSC - Lead Smart Connect" class="nav-logo-img">
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#retorno">Solução</a>
+    <a href="#quebra">Como Funciona</a>
+    <a href="#cases">Resultados</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary nav-cta">Falar com um Especialista</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+<div class="hero-orb hero-orb-1"></div>
+<div class="hero-orb hero-orb-2"></div>
+<div class="hero-orb hero-orb-3"></div>
+<div class="container">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Ecossistema de IA Comercial</div>
+      <h1 class="hero-title" data-splitting>Seu time pra estratégia. IA pra nunca perder um lead.</h1>
+      <p class="hero-sub">Atendimento automático que não perde lead, campanhas que custam menos por conversão e rastreamento de ponta a ponta — uma operação que fecha mais.</p>
+      <div class="hero-ctas">
+        <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary">Falar com um Especialista &rarr;</a>
+        <a href="#quebra" class="btn-glass">Como Funciona</a>
+      </div>
+      <div class="hero-proof">
+        <span class="hero-proof-dot"></span>
+        +47 operações já automatizadas
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    </div>
+  </div>
+  <div class="scroll-indicator">ROLAR &darr;</div>
+</div>
+</section>
+
+<!-- LOGOS -->
+<section id="logos">
+<div class="container">
+  <div class="logos-label">&mdash; EMPRESAS QUE CONFIAM NO ECOSSISTEMA LSC &mdash;</div>
+</div>
+<div class="logos-track-wrapper">
+  <div class="logos-track">
+    <span>Camari</span><span>CS-Club</span><span>Flow Card</span><span>Joy to Joy</span>
+    <span>Palácio das Ferramentas</span><span>Perfetto</span><span>Rafarillo</span><span>Syspro</span>
+    <span>Camari</span><span>CS-Club</span><span>Flow Card</span><span>Joy to Joy</span>
+    <span>Palácio das Ferramentas</span><span>Perfetto</span><span>Rafarillo</span><span>Syspro</span>
+  </div>
+</div>
+</section>
+
+<!-- RETORNO REAL -->
+<section id="retorno">
+<div class="container">
+  <div class="retorno-grid">
+    <div>
+      <div class="section-badge" data-reveal>&#9679; RETORNO REAL</div>
+      <h2 class="retorno-h2" data-reveal>Não criamos IA para impressionar.<br><span class="gradient-text">Criamos receita.</span></h2>
+      <p class="retorno-desc" data-reveal>Nosso ecossistema entra onde existe impacto comercial direto: eliminar lead sem resposta, reduzir custo por aquisição e escalar o time sem contratar.</p>
+    </div>
+    <div class="retorno-items">
+      <div class="retorno-item" data-reveal>
+        <div class="retorno-item-num">01</div>
+        <div class="retorno-item-title">Zero lead sem resposta</div>
+      </div>
+      <div class="retorno-item" data-reveal>
+        <div class="retorno-item-num">02</div>
+        <div class="retorno-item-title">Redução de CAC em até 30%</div>
+      </div>
+      <div class="retorno-item" data-reveal>
+        <div class="retorno-item-num">03</div>
+        <div class="retorno-item-title">+3x demos qualificadas</div>
+      </div>
+      <div class="retorno-item" data-reveal>
+        <div class="retorno-item-num">04</div>
+        <div class="retorno-item-title">Time focado só em fechar</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FEATURES / TABS -->
+<section id="quebra">
+<div class="container">
+  <div class="features-header" data-reveal>
+    <h2 class="features-h2">Sua equipe decide,<br><span class="gradient-text">O ecossistema executa.</span></h2>
+    <p class="features-sub">Atende, qualifica, dispara, rastreia e alerta — o ecossistema trabalha enquanto sua equipe foca em fechar.</p>
+  </div>
+
+  <div class="tabs-nav" data-reveal>
+    <button class="tab-btn active" data-tab="tab1"><span class="tab-btn-num">01</span>Atendimento</button>
+    <button class="tab-btn" data-tab="tab2"><span class="tab-btn-num">02</span>Qualificação</button>
+    <button class="tab-btn" data-tab="tab3"><span class="tab-btn-num">03</span>Campanhas</button>
+    <button class="tab-btn" data-tab="tab4"><span class="tab-btn-num">04</span>Rastreamento</button>
+    <button class="tab-btn" data-tab="tab5"><span class="tab-btn-num">05</span>Alerta</button>
+  </div>
+
+  <div class="tab-panel active" id="tab1">
+    <div>
+      <h3 class="tab-title">Responde antes do lead esfriar.</h3>
+      <p class="tab-desc">WhatsApp, Instagram, Facebook e Webchat unificados. IA que atende, qualifica e encaminha 24/7 sem intervenção humana.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-chat">
+        <div class="mock-bubble mock-bubble-user">Olá, quero saber mais sobre o plano empresarial.</div>
+        <div class="mock-bubble mock-bubble-ai">Oi, Carlos! Claro. Qual o tamanho da sua equipe hoje?</div>
+        <div class="mock-bubble mock-bubble-user">Somos 12 pessoas no comercial.</div>
+        <div class="mock-bubble mock-bubble-ai">Perfeito. Vou encaminhar você para o especialista ideal.</div>
+        <div class="mock-bubble mock-bubble-system">&#9889; Encaminhado para atendente &middot; Carlos M.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab2">
+    <div>
+      <h3 class="tab-title">Separa quente de morno automaticamente.</h3>
+      <p class="tab-desc">O LSC Pulse classifica cada lead por comportamento, urgência e estágio da jornada para o atendente certo chegar na hora certa.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-row"><span class="mock-name">Carlos M.</span><span class="mock-tag mock-tag-hot">Quente &middot; 94</span></div>
+      <div class="mock-row"><span class="mock-name">Ana S.</span><span class="mock-tag mock-tag-close">Fechando &middot; 87</span></div>
+      <div class="mock-row"><span class="mock-name">Rafael T.</span><span class="mock-tag mock-tag-warm">Morno &middot; 61</span></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab3">
+    <div>
+      <h3 class="tab-title">Fala com o cliente certo, na hora certa.</h3>
+      <p class="tab-desc">Campanhas segmentadas via WhatsApp, Instagram e e-mail disparadas por gatilho: carrinho abandonado, reativação, aniversário.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-campaign">
+        <div class="mock-campaign-item"><span class="mock-campaign-name">Carrinho abandonado</span><div class="mock-campaign-status"><span class="mock-campaign-dot"></span><span class="mock-campaign-rate">23% conv.</span></div></div>
+        <div class="mock-campaign-item"><span class="mock-campaign-name">Reativação VIP</span><div class="mock-campaign-status"><span class="mock-campaign-dot"></span><span class="mock-campaign-rate">18% conv.</span></div></div>
+        <div class="mock-campaign-item"><span class="mock-campaign-name">Aniversário</span><div class="mock-campaign-status"><span class="mock-campaign-dot"></span><span class="mock-campaign-rate">31% conv.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab4">
+    <div>
+      <h3 class="tab-title">Sabe exatamente o que gerou cada venda.</h3>
+      <p class="tab-desc">GTM, pixels e atribuição configurados. CPL, ROAS e qualidade de lead em tempo real conectando mídia e CRM.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-row"><span class="mock-name">Google Search</span><span class="mock-value">R$ 18,40/lead</span></div>
+      <div class="mock-row"><span class="mock-name">Meta Reels</span><span class="mock-value">R$ 11,70/lead</span></div>
+      <div class="mock-row"><span class="mock-name">Instagram Stories</span><span class="mock-value">R$ 14,20/lead</span></div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab5">
+    <div>
+      <h3 class="tab-title">Chama o vendedor no momento certo.</h3>
+      <p class="tab-desc">O time humano entra só quando o lead já está qualificado e pronto para fechar — sem revisar cada conversa manualmente.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-notif">
+        <div class="mock-notif-title">Decisão necessária</div>
+        <div class="mock-notif-body">Aprovar proposta #4831</div>
+        <div class="mock-notif-badge">&#10003; APROVADO</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+<div class="container">
+  <div class="cases-header" data-reveal>
+    <div class="section-badge">&#9679; CASOS &amp; RESULTADOS</div>
+    <h2 class="cases-h2">O que construímos para operações reais.</h2>
+    <p class="cases-sub">Casos reais do ecossistema LSC reduzindo esforço manual e gerando retorno mensurável.</p>
+  </div>
+  <div class="cases-grid">
+    <div class="case-card" data-reveal>
+      <span class="case-tag">IMPLANTAÇÃO COMPLETA</span>
+      <div class="case-sector">Imobiliária &middot; Setor B2C</div>
+      <h3 class="case-title">Triagem automática, agendamento sem plantão humano.</h3>
+      <p class="case-desc">IA que responde na hora, qualifica e encaminha para o corretor certo — 24/7, sem perder oportunidade.</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-value">3x</div><div class="case-metric-label">Agendamentos</div></div>
+        <div class="case-metric"><div class="case-metric-value">&lt;30s</div><div class="case-metric-label">Resp. média</div></div>
+        <div class="case-metric"><div class="case-metric-value">+180%</div><div class="case-metric-label">Conversão</div></div>
+      </div>
+    </div>
+    <div class="case-card" data-reveal>
+      <span class="case-tag">ATENDIMENTO 24/7</span>
+      <div class="case-sector">Saúde &middot; Clínica</div>
+      <h3 class="case-title">Secretária de IA que nunca dorme.</h3>
+      <p class="case-desc">Agenda, confirma e reativa pacientes automaticamente via WhatsApp sem intervenção da recepção.</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-value">100%</div><div class="case-metric-label">Triagem</div></div>
+        <div class="case-metric"><div class="case-metric-value">24/7</div><div class="case-metric-label">Operação</div></div>
+        <div class="case-metric"><div class="case-metric-value">Zero</div><div class="case-metric-label">Perdido</div></div>
+      </div>
+    </div>
+    <div class="case-card" data-reveal>
+      <span class="case-tag">LSC PULSE ATIVO</span>
+      <div class="case-sector">E-commerce &middot; Varejo</div>
+      <h3 class="case-title">Base inativa reativada no piloto automático.</h3>
+      <p class="case-desc">LSC Pulse disparando carrinho abandonado, aniversário e VIP inativos com segmentação automática.</p>
+      <div class="case-metrics">
+        <div class="case-metric"><div class="case-metric-value">-30%</div><div class="case-metric-label">CAC</div></div>
+        <div class="case-metric"><div class="case-metric-value">23%</div><div class="case-metric-label">Conv. carrinho</div></div>
+        <div class="case-metric"><div class="case-metric-value">31%</div><div class="case-metric-label">Conv. aniversário</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FRENTES -->
+<section id="frentes">
+<div class="container">
+  <div class="frentes-header" data-reveal>
+    <h2 class="frentes-h2">Onde o ecossistema LSC entra na sua operação.</h2>
+    <p class="frentes-desc">Mapeamos os gargalos comerciais, estimamos o retorno e implantamos em até 14 dias.</p>
+  </div>
+  <div class="frentes-grid">
+    <div class="frente-item" data-reveal><div class="frente-num">01</div><div class="frente-title">Atendimento omnichannel</div><div class="frente-desc">WhatsApp, Instagram, Facebook e Webchat com IA unificada.</div></div>
+    <div class="frente-item" data-reveal><div class="frente-num">02</div><div class="frente-title">Qualificação e pipeline</div><div class="frente-desc">Leads classificados e distribuídos automaticamente por score.</div></div>
+    <div class="frente-item" data-reveal><div class="frente-num">03</div><div class="frente-title">Campanhas e reativação</div><div class="frente-desc">Disparos segmentados por comportamento via LSC Pulse.</div></div>
+    <div class="frente-item" data-reveal><div class="frente-num">04</div><div class="frente-title">GTM e atribuição</div><div class="frente-desc">Rastreamento completo do clique até o fechamento.</div></div>
+    <div class="frente-item" data-reveal><div class="frente-num">05</div><div class="frente-title">Integração com CRM/ERP</div><div class="frente-desc">Conexão com HubSpot, Pipedrive, Salesforce e sistemas legados.</div></div>
+    <div class="frente-item" data-reveal><div class="frente-num">06</div><div class="frente-title">Dashboards e performance</div><div class="frente-desc">Dados de mídia, atendimento e vendas em tempo real.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo">
+<div class="container">
+  <div class="processo-header" data-reveal>
+    <div class="section-badge">PROCESSO</div>
+    <h2 class="processo-h2">Como sua operação automatizada nasce.</h2>
+    <p class="processo-sub">Três etapas simples para transformar seu comercial de ponta a ponta.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-node" data-reveal>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card"><div class="timeline-phase">Fase 01</div><h3 class="timeline-title">Diagnóstico</h3><div class="timeline-tag">Sem custo</div><p class="timeline-desc">Análise da operação, canais, integrações e gargalos — sem compromisso.</p></div>
+    </div>
+    <div class="timeline-node active" data-reveal>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card"><div class="timeline-phase">Fase 02</div><h3 class="timeline-title">Implantação</h3><div class="timeline-tag">Até 14 dias</div><p class="timeline-desc">Setup completo do ecossistema LSC, integrações e treinamento do time.</p></div>
+    </div>
+    <div class="timeline-node" data-reveal>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card"><div class="timeline-phase">Fase 03</div><h3 class="timeline-title">Otimização</h3><div class="timeline-tag">Recorrente</div><p class="timeline-desc">Relatórios mensais, ajustes de automações e reuniões de revisão estratégica.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- GARANTIA -->
+<section id="garantia">
+<div class="container">
+  <div class="garantia-grid">
+    <div data-reveal>
+      <div class="section-badge">GARANTIA CONTRATUAL</div>
+      <h2 class="garantia-h2">Cresça o uso conforme o retorno aparece.</h2>
+    </div>
+    <div class="garantia-pillars">
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128202;</div><div class="garantia-pillar-title">ROI primeiro</div><p class="garantia-pillar-desc">Priorizamos onde o impacto comercial é mais claro.</p></div>
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128200;</div><div class="garantia-pillar-title">Uso mensurável</div><p class="garantia-pillar-desc">Cada automação tem volume, custo e resultado acompanhados.</p></div>
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128640;</div><div class="garantia-pillar-title">Escala controlada</div><p class="garantia-pillar-desc">A operação cresce conforme o retorno se comprova.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+<div class="container">
+  <div class="faq-header" data-reveal>
+    <h2 class="faq-h2">Perguntas frequentes.</h2>
+    <p class="faq-sub">Não encontrou o que procura? Fale diretamente com nosso time.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">A IA vai substituir meus vendedores?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Definitivamente não. O papel da IA da LSC é eliminar tarefas braçais e qualificar contatos. Seus vendedores entrarão em campo apenas quando o lead já estiver "quente", melhorando a taxa de conversão e o ânimo do time.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">O que é o ecossistema LSC na prática?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">É a combinação de automação de atendimento com IA, LSC Pulse para campanhas inteligentes, GTM e rastreamento completo — tudo integrado para sua operação fechar mais.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">Quanto tempo até estar funcionando?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Em até 14 dias o sistema passa pelo mapeamento, configuração completa e treinamento do time — e começa a processar o fluxo da sua operação.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">Como funciona a integração com meus sistemas atuais?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">O ecossistema LSC possui arquitetura de APIs e webhooks. Integramos com HubSpot, RD Station, Pipedrive, Salesforce e outros sem perder histórico ou dados.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">Qual é o valor do investimento?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">O diagnóstico inicial é gratuito. A proposta é personalizada com base no tamanho da operação. Clientes costumam ver ROI em 60 a 90 dias.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">O LSC Pulse funciona para qualquer segmento?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Sim. Já implantamos em imobiliárias, clínicas, e-commerce e B2B. A lógica é configurável para cada jornada de compra.</div></div>
+    </div>
+    <div class="faq-item" data-reveal>
+      <button class="faq-question">Como é o suporte após a implantação?<span class="faq-icon">+</span></button>
+      <div class="faq-answer"><div class="faq-answer-inner">Cada cliente tem um Customer Success dedicado, SLA de 2 horas em dias úteis e reuniões mensais de revisão estratégica.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+<div class="container">
+  <div class="cta-grid">
+    <div data-reveal>
+      <div class="section-badge" style="color:rgba(255,255,255,0.4)">DIAGNÓSTICO</div>
+      <h2 class="cta-h2">Comece pelo diagnóstico.</h2>
+      <p class="cta-sub">60 minutos com um especialista. Saia com escopo, prazo e ROI estimado. Sem custo, sem compromisso.</p>
+      <div class="cta-trust">
+        <div class="cta-trust-item"><span class="cta-trust-check">&#10003;</span> Resposta em até 1 dia útil</div>
+        <div class="cta-trust-item"><span class="cta-trust-check">&#10003;</span> Conversa direta com especialista</div>
+        <div class="cta-trust-item"><span class="cta-trust-check">&#10003;</span> Sem custo</div>
+      </div>
+    </div>
+    <div data-reveal>
+      <form class="cta-form" onsubmit="return false;">
+        <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-input" placeholder="Como devemos te chamar"></div>
+        <div class="form-group"><label class="form-label">E-mail corporativo</label><input type="email" class="form-input" placeholder="voce@empresa.com.br"></div>
+        <div class="form-group"><label class="form-label">Empresa</label><input type="text" class="form-input" placeholder="Nome da empresa"></div>
+        <div class="form-group"><label class="form-label">Cargo</label><input type="text" class="form-input" placeholder="Sua função"></div>
+        <div class="form-group">
+          <label class="form-label">Faturamento anual</label>
+          <div class="form-radios">
+            <label class="form-radio"><input type="radio" name="revenue" value="1m">Até R$1M</label>
+            <label class="form-radio"><input type="radio" name="revenue" value="1-5m">R$1M–5M</label>
+            <label class="form-radio"><input type="radio" name="revenue" value="5-20m">R$5M–20M</label>
+            <label class="form-radio"><input type="radio" name="revenue" value="20m">+R$20M</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Segmento</label>
+          <select class="form-select">
+            <option value="" disabled selected>Selecione o segmento</option>
+            <option>Imobiliária</option><option>Saúde</option><option>E-commerce</option>
+            <option>B2B Serviços</option><option>Varejo</option><option>Indústria</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Principal dor</label><input type="text" class="form-input" placeholder="Em uma linha: qual operação você quer destravar?"></div>
+        <button type="submit" class="btn-primary form-submit" onclick="window.open('https://api.whatsapp.com/send/?phone=5516993750644','_blank')">Agendar diagnóstico &rarr;</button>
+        <div class="form-footer">Resposta em até 1 dia útil &middot; Conversa direta com especialista &middot; Sem custo</div>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div>
+      <a href="#hero" class="nav-logo">
+        <img src="Logo/Banner Branco.png" alt="LSC - Lead Smart Connect" class="nav-logo-img">
+      </a>
+      <p class="footer-brand-desc">Ecossistema de IA comercial para operações que não param.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" aria-label="LinkedIn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" class="footer-social" aria-label="Instagram"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Ecossistema</div><a href="#retorno">Solução</a><a href="#quebra">Como Funciona</a><a href="#cases">Resultados</a><a href="#frentes">Integrações</a><a href="#faq">FAQ</a></div>
+    <div class="footer-col"><div class="footer-col-title">Suporte</div><a href="#">Central de Suporte</a><a href="#">Documentação</a><a href="#">Status do Sistema</a><a href="#">Abrir Chamado</a></div>
+    <div class="footer-col"><div class="footer-col-title">Contato</div><a href="mailto:contato@leadsmartconnect.com.br">contato@leadsmartconnect.com.br</a><a href="tel:+5516993750644">+55 (16) 99375-0644</a><a href="#">Franca — São Paulo</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Lead Smart Connect. Todos os direitos reservados. &middot; CNPJ 57.869.805/0001-93</span>
+    <div class="footer-bottom-links"><a href="#">Política de Privacidade</a><a href="#">Termos de Uso</a></div>
+  </div>
+</div>
+</footer>
+
+<!-- ═══════════════════════ LIBRARIES ═══════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+
+<script>
+// ═══════════════════════ LENIS SMOOTH SCROLL ═══════════════════════
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  touchMultiplier: 2,
+});
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+
+// Connect Lenis to GSAP ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+gsap.ticker.lagSmoothing(0);
+
+// Nav anchor smooth scroll via Lenis
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) lenis.scrollTo(target, { offset: -80 });
+  });
+});
+
+gsap.registerPlugin(ScrollTrigger);
+
+// ═══════════════════════ NAV SCROLL ═══════════════════════
+const nav = document.getElementById('navbar');
+ScrollTrigger.create({
+  start: 40,
+  onUpdate: (self) => nav.classList.toggle('scrolled', self.scroll() > 40),
+});
+
+// ═══════════════════════ MOBILE MENU ═══════════════════════
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  links.classList.toggle('open');
+  toggle.innerHTML = links.classList.contains('open') ? '&#10005;' : '&#9776;';
+});
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.innerHTML = '&#9776;';
+  });
+});
+
+// ═══════════════════════ HERO SPLITTING (inline) ═══════════════════════
+(function splitHeroTitle() {
+  const el = document.querySelector('[data-splitting]');
+  if (!el) return;
+  const text = el.innerHTML;
+  // Split into words, handle <span> tags for gradient-text
+  const words = text.split(/\s+/);
+  let html = '';
+  let charIndex = 0;
+  words.forEach((word, wi) => {
+    // Check if this word contains HTML tags
+    const isTag = word.includes('<') || word.includes('>');
+    if (isTag) {
+      html += word + ' ';
+      return;
+    }
+    html += '<span class="word">';
+    for (let i = 0; i < word.length; i++) {
+      html += `<span class="char" style="--char-index:${charIndex}">${word[i]}</span>`;
+      charIndex++;
+    }
+    html += '</span> ';
+  });
+  el.innerHTML = html;
+
+  // Now handle the "IA" text — find it and apply gradient
+  el.querySelectorAll('.word').forEach(w => {
+    if (w.textContent.trim() === 'IA') {
+      w.querySelectorAll('.char').forEach(c => {
+        c.style.background = 'var(--gradient-primary)';
+        c.style.webkitBackgroundClip = 'text';
+        c.style.webkitTextFillColor = 'transparent';
+        c.style.backgroundClip = 'text';
+      });
+    }
+  });
+})();
+
+// ═══════════════════════ HERO TIMELINE ═══════════════════════
+const heroTl = gsap.timeline({ delay: 0.2 });
+
+heroTl
+  .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+  .to('.hero-title .char', {
+    opacity: 1, y: 0, rotateX: 0,
+    duration: 0.5, ease: 'power3.out',
+    stagger: 0.02,
+  }, '-=0.3')
+  .to('.hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.6')
+  .to('.hero-ctas', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.5')
+  .to('.hero-proof', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.4')
+;
+
+// ═══════════════════════ ORB PARALLAX ═══════════════════════
+const hero = document.getElementById('hero');
+const orbs = hero.querySelectorAll('.hero-orb');
+
+// Mouse-based parallax
+window.addEventListener('mousemove', (e) => {
+  if (window.innerWidth < 768) return;
+  const x = (e.clientX / window.innerWidth - 0.5) * 2;
+  const y = (e.clientY / window.innerHeight - 0.5) * 2;
+  orbs.forEach((orb, i) => {
+    gsap.to(orb, { x: x * (i + 1) * 15, y: y * (i + 1) * 10, duration: 1.5, ease: 'power2.out' });
+  });
+}, { passive: true });
+
+// Scroll-based parallax on orbs
+gsap.to('.hero-orb-1', { y: 120, scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.5 }});
+gsap.to('.hero-orb-2', { y: -80, scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.5 }});
+
+// ═══════════════════════ SCROLL REVEALS (GSAP) ═══════════════════════
+gsap.utils.toArray('[data-reveal]').forEach((el, i) => {
+  // Get siblings for stagger
+  const siblings = el.parentElement.querySelectorAll('[data-reveal]');
+  const siblingIndex = Array.from(siblings).indexOf(el);
+
+  gsap.fromTo(el,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0, duration: 0.8,
+      ease: 'power3.out',
+      delay: siblingIndex * 0.1,
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 88%',
+        toggleActions: 'play none none none',
+      },
+    }
+  );
+});
+
+// ═══════════════════════ SECTION PARALLAX ═══════════════════════
+gsap.utils.toArray('#retorno::before, #cta-final').forEach(section => {
+  gsap.to(section, {
+    backgroundPositionY: '20%',
+    ease: 'none',
+    scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
+  });
+});
+
+// ═══════════════════════ CASES HORIZONTAL STAGGER ═══════════════════════
+gsap.fromTo('.case-card', { opacity: 0, y: 60, rotateY: 5 }, {
+  opacity: 1, y: 0, rotateY: 0,
+  duration: 0.8, ease: 'power3.out',
+  stagger: 0.15,
+  scrollTrigger: { trigger: '.cases-grid', start: 'top 80%' },
+});
+
+// ═══════════════════════ TABS ═══════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const panel = document.getElementById(btn.dataset.tab);
+    panel.classList.add('active');
+
+    // GSAP entrance for the new panel
+    const children = panel.children;
+    gsap.fromTo(children[0], { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' });
+    gsap.fromTo(children[1], { opacity: 0, x: 30, scale: 0.96 }, {
+      opacity: 1, x: 0, scale: 1, duration: 0.6, ease: 'power3.out', delay: 0.1,
+    });
+
+    // Animate chat bubbles if present
+    const bubbles = panel.querySelectorAll('.mock-bubble');
+    if (bubbles.length) {
+      gsap.fromTo(bubbles, { opacity: 0, y: 15, scale: 0.95 }, {
+        opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.5)', stagger: 0.12,
+      });
+    }
+  });
+});
+
+// ═══════════════════════ FAQ ═══════════════════════
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    document.querySelectorAll('.faq-item.open').forEach(other => {
+      if (other !== item) other.classList.remove('open');
+    });
+    item.classList.toggle('open');
+  });
+});
+
+// ═══════════════════════ FRENTES STAGGER ═══════════════════════
+gsap.fromTo('.frente-item', { opacity: 0, y: 30 }, {
+  opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+  stagger: { amount: 0.6, grid: [2, 3], from: 'start' },
+  scrollTrigger: { trigger: '.frentes-grid', start: 'top 85%' },
+});
+
+// ═══════════════════════ TIMELINE STAGGER ═══════════════════════
+gsap.fromTo('.timeline-node', { opacity: 0, y: 40 }, {
+  opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.2,
+  scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
+});
+
+// ═══════════════════════ HERO STARS & PARTICLES ═══════════════════════
+(function initParticles() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr;
+  let mouseX = 0.5, mouseY = 0.5;
+  const particles = [];
+  const stars = [];
+  const CONNECTION_DIST = 150;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = rect.width; h = rect.height;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  class Star {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.r = Math.random() * 1.2 + 0.3;
+      this.phase = Math.random() * Math.PI * 2;
+      this.speed = Math.random() * 0.015 + 0.005;
+    }
+    draw() {
+      this.phase += this.speed;
+      const a = 0.2 + 0.35 * Math.sin(this.phase);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,200,255,${a})`;
+      ctx.fill();
+    }
+  }
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.r = Math.random() * 2 + 0.8;
+      this.alpha = Math.random() * 0.5 + 0.2;
+      this.pulse = Math.random() * Math.PI * 2;
+      this.pulseSpeed = Math.random() * 0.02 + 0.008;
+      this.hue = Math.random() > 0.5 ? '167,139,250' : '120,180,255';
+    }
+    update() {
+      this.x += this.vx + (mouseX - 0.5) * 0.3;
+      this.y += this.vy + (mouseY - 0.5) * 0.2;
+      this.pulse += this.pulseSpeed;
+      if (this.x < -20) this.x = w + 20;
+      if (this.x > w + 20) this.x = -20;
+      if (this.y < -20) this.y = h + 20;
+      if (this.y > h + 20) this.y = -20;
+    }
+    draw() {
+      const a = this.alpha * (0.5 + 0.5 * Math.sin(this.pulse));
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.hue},${a})`;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(124,58,237,${a * 0.08})`;
+      ctx.fill();
+    }
+  }
+
+  function init() {
+    resize();
+    particles.length = 0; stars.length = 0;
+    for (let i = 0; i < 100; i++) stars.push(new Star());
+    for (let i = 0; i < 55; i++) particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+
+    stars.forEach(s => s.draw());
+    particles.forEach(p => { p.update(); p.draw(); });
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONNECTION_DIST) {
+          const a = (1 - dist / CONNECTION_DIST) * 0.18;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(124,58,237,${a})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  canvas.parentElement.addEventListener('mousemove', (e) => {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) / rect.width;
+    mouseY = (e.clientY - rect.top) / rect.height;
+  }, { passive: true });
+
+  init();
+  animate();
+  window.addEventListener('resize', () => { resize(); init(); });
+})();
+</script>
+</body>
+</html>

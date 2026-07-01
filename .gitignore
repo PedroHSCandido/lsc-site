@@ -1,0 +1,8 @@
+node_modules/
+.playwright-mcp/
+# Screenshots de teste
+*.png
+!Logo/*.png
+package.json
+package-lock.json
+test-hero.js
