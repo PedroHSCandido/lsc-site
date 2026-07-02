@@ -1472,6 +1472,10 @@ document.querySelectorAll('[data-count]').forEach(el => {
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${this.hue},${a})`;
       ctx.fill();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(124,58,237,${a * 0.08})`;
+      ctx.fill();
     }
   }
 
@@ -1479,8 +1483,8 @@ document.querySelectorAll('[data-count]').forEach(el => {
     resize();
     stars.length = 0; particles.length = 0;
     const isMobile = w < 768;
-    const starCount = isMobile ? 40 : 70;
-    const particleCount = isMobile ? 20 : 35;
+    const starCount = isMobile ? 50 : 100;
+    const particleCount = isMobile ? 25 : 55;
     for (let i = 0; i < starCount; i++) stars.push(new Star());
     for (let i = 0; i < particleCount; i++) particles.push(new Particle());
   }
