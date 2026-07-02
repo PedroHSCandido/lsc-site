@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /.playwright-mcp/
+
+Sitemap: https://lsc-site.pages.dev/sitemap.xml
