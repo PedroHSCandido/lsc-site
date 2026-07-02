@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LSC — Lead Smart Connect | Ecossistema de IA Comercial</title>
 <meta name="description" content="Atendimento automático que não perde lead, campanhas que custam menos por conversão e rastreamento de ponta a ponta.">
+<link rel="icon" type="image/png" href="Logo/Logo Original Roxa.png">
+<link rel="apple-touch-icon" href="Logo/Logo Original Roxa.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -193,12 +195,13 @@ body::after{
   animation:scrollLogos 32s linear infinite;width:max-content;
 }
 .logos-track:hover{animation-play-state:paused}
-.logos-track span{
-  font-family:'Sora',sans-serif;font-size:18px;font-weight:600;
-  color:#b0b0c8;white-space:nowrap;opacity:.5;
-  transition:opacity .3s,color .3s;
+.logos-track img{
+  height:56px;width:auto;object-fit:contain;
+  filter:grayscale(1);opacity:.45;
+  mix-blend-mode:multiply;
+  transition:opacity .3s,filter .3s;
 }
-.logos-track span:hover{opacity:.85;color:var(--purple)}
+.logos-track img:hover{opacity:.8;filter:grayscale(0)}
 @keyframes scrollLogos{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ═══════════════════════ RETORNO ═══════════════════════ */
@@ -211,22 +214,35 @@ body::after{
   background:radial-gradient(ellipse,rgba(124,58,237,0.06),transparent 70%);
   pointer-events:none;
 }
-.retorno-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.retorno-grid{display:flex;flex-direction:column;gap:56px}
+.retorno-header{text-align:center;max-width:650px;margin:0 auto}
 .retorno-h2{font-size:clamp(32px,4vw,56px);font-weight:600;line-height:1.08;letter-spacing:-0.03em;margin-bottom:20px}
-.retorno-desc{color:var(--text-secondary);font-size:16px;line-height:1.7;max-width:480px}
-.retorno-items{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.retorno-item{
-  padding:28px 24px;border-top:1px solid var(--border-light);
-  transition:all .3s var(--ease-out-expo);cursor:default;position:relative;
+.retorno-desc{color:var(--text-secondary);font-size:16px;line-height:1.7}
+.retorno-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.retorno-metric{
+  text-align:center;padding:32px 16px;
+  border-radius:20px;background:var(--bg-page);
+  border:1px solid var(--border-light);
+  transition:all .4s var(--ease-out-expo);position:relative;overflow:hidden;
 }
-.retorno-item::before{
-  content:'';position:absolute;top:0;left:0;width:0;height:2px;
-  background:var(--gradient-primary);transition:width .4s var(--ease-out-expo);
+.retorno-metric::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(124,58,237,0.06),transparent 60%);
+  opacity:0;transition:opacity .3s;
 }
-.retorno-item:hover{background:var(--bg-card-alt);transform:translateY(-2px)}
-.retorno-item:hover::before{width:100%}
-.retorno-item-num{font-size:11px;color:var(--text-muted);margin-bottom:8px;font-weight:600;font-variant-numeric:tabular-nums}
-.retorno-item-title{font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.3}
+.retorno-metric:hover{transform:translateY(-6px);box-shadow:var(--shadow-purple-sm)}
+.retorno-metric:hover::before{opacity:1}
+.retorno-metric-value{
+  font-family:'Sora',sans-serif;font-size:clamp(36px,4vw,56px);font-weight:700;
+  line-height:1;letter-spacing:-0.03em;margin-bottom:8px;
+  background:var(--gradient-primary);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;
+  position:relative;z-index:1;
+}
+.retorno-metric-label{
+  font-size:14px;color:var(--text-secondary);line-height:1.4;
+  position:relative;z-index:1;
+}
 
 /* ═══════════════════════ FEATURES / TABS ═══════════════════════ */
 #quebra{background:var(--bg-white);padding:88px 0}
@@ -351,29 +367,74 @@ body::after{
 .case-metric-label{font-size:11px;color:var(--text-muted);margin-top:2px}
 
 /* ═══════════════════════ FRENTES ═══════════════════════ */
-#frentes{background:var(--bg-white);padding:88px 0}
-.frentes-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;align-items:end}
-.frentes-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em}
-.frentes-desc{color:var(--text-secondary);font-size:16px;line-height:1.7}
-.frentes-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  border-bottom:1px solid var(--border-light);border-right:1px solid var(--border-light);
+/* ═══════════════════════ TRACKING ═══════════════════════ */
+#tracking{
+  background:
+    radial-gradient(900px 500px at 30% -10%,rgba(124,58,237,0.12),transparent 60%),
+    radial-gradient(700px 400px at 80% 110%,rgba(45,126,255,0.08),transparent 60%),
+    linear-gradient(180deg,#0d0d22 0%,#111133 50%,#0d0d22 100%);
+  padding:100px 0;color:#fff;position:relative;overflow:hidden;
 }
-.frente-item{
-  padding:32px 24px;
-  border-top:1px solid var(--border-light);border-left:1px solid var(--border-light);
-  transition:all .3s var(--ease-out-expo);position:relative;
-}
-.frente-item::after{
+#tracking::before{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(124,58,237,0.04),transparent);
-  opacity:0;transition:opacity .3s;
+  background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;
 }
-.frente-item:hover{transform:scale(1.02)}
-.frente-item:hover::after{opacity:1}
-.frente-num{font-size:11px;color:var(--purple-light);font-weight:700;margin-bottom:10px;position:relative;z-index:1;font-family:'Sora',sans-serif}
-.frente-title{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px;color:var(--text-primary);position:relative;z-index:1}
-.frente-desc{font-size:14px;color:var(--text-secondary);line-height:1.6;position:relative;z-index:1}
+.tracking-header{text-align:center;max-width:700px;margin:0 auto 64px;position:relative;z-index:2}
+.tracking-h2{font-size:clamp(28px,3.5vw,48px);font-weight:600;line-height:1.1;letter-spacing:-0.03em;margin-bottom:16px}
+.tracking-sub{color:rgba(255,255,255,0.55);font-size:16px;line-height:1.7}
+.tracking-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  position:relative;z-index:2;
+}
+.tracking-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px;padding:36px 28px;
+  transition:all .4s var(--ease-out-expo);position:relative;overflow:hidden;
+}
+.tracking-card::before{
+  content:'';position:absolute;inset:-1px;border-radius:20px;padding:1px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.08),transparent 50%);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.tracking-card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,0.05);
+  box-shadow:0 16px 48px rgba(124,58,237,0.15);
+}
+.tracking-card-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:rgba(124,58,237,0.12);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;color:var(--purple-light);
+}
+.tracking-card-title{
+  font-family:'Sora',sans-serif;font-size:18px;font-weight:600;
+  margin-bottom:10px;
+}
+.tracking-card-desc{
+  font-size:14px;color:rgba(255,255,255,0.55);line-height:1.7;
+}
+.tracking-card.featured{
+  grid-column:1 / -1;
+  background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(45,126,255,0.06));
+  border-color:rgba(124,58,237,0.15);
+}
+.tracking-featured-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+}
+.tracking-benefit{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.tracking-benefit:last-child{margin-bottom:0}
+.tracking-benefit-icon{
+  width:28px;height:28px;border-radius:8px;
+  background:rgba(34,197,94,0.12);
+  display:flex;align-items:center;justify-content:center;
+  color:#22c55e;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px;
+}
+.tracking-benefit-text{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6}
+.tracking-benefit-text strong{color:#fff;font-weight:600}
 
 /* ═══════════════════════ PROCESSO ═══════════════════════ */
 #processo{background:var(--bg-page);padding:88px 0}
@@ -426,7 +487,7 @@ body::after{
 .garantia-pillar:hover{background:var(--bg-card-alt);transform:translateY(-4px)}
 .garantia-pillar-icon{
   width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,0.08);
-  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--purple);
 }
 .garantia-pillar-title{font-family:'Sora',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px}
 .garantia-pillar-desc{font-size:14px;color:var(--text-secondary);line-height:1.6}
@@ -556,8 +617,9 @@ body::after{
 
 /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
 @media(max-width:1024px){
-  .hero-grid,.retorno-grid,.tab-panel.active,.cta-grid,.garantia-grid,.frentes-header{grid-template-columns:1fr}
-  .cases-grid,.frentes-grid,.garantia-pillars{grid-template-columns:1fr 1fr}
+  .hero-grid,.tab-panel.active,.cta-grid,.garantia-grid{grid-template-columns:1fr}
+  .retorno-metrics{grid-template-columns:1fr 1fr}
+  .cases-grid,.garantia-pillars{grid-template-columns:1fr 1fr}
   .timeline{grid-template-columns:1fr}
   .timeline::before{display:none}
   .footer-grid{grid-template-columns:1fr 1fr}
@@ -577,7 +639,9 @@ body::after{
   #hero{padding:120px 0 80px}
   .hero-title{font-size:clamp(32px,8vw,48px)}
   .hero-visual{min-height:320px}
-  .cases-grid,.frentes-grid,.retorno-items,.garantia-pillars{grid-template-columns:1fr}
+  .cases-grid,.garantia-pillars,.tracking-grid{grid-template-columns:1fr}
+  .tracking-card.featured{grid-column:auto}
+  .tracking-featured-inner{grid-template-columns:1fr;gap:28px}
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
   .tabs-nav{gap:0}
@@ -642,10 +706,26 @@ body::after{
 </div>
 <div class="logos-track-wrapper">
   <div class="logos-track">
-    <span>Camari</span><span>CS-Club</span><span>Flow Card</span><span>Joy to Joy</span>
-    <span>Palácio das Ferramentas</span><span>Perfetto</span><span>Rafarillo</span><span>Syspro</span>
-    <span>Camari</span><span>CS-Club</span><span>Flow Card</span><span>Joy to Joy</span>
-    <span>Palácio das Ferramentas</span><span>Perfetto</span><span>Rafarillo</span><span>Syspro</span>
+
+    <img src="clients-logos/CS-Club.png" alt="CS-Club">
+    <img src="clients-logos/flow_card_logo.jpg" alt="Flow Card">
+    <img src="clients-logos/joy-to-joy.png" alt="Joy to Joy">
+    <img src="clients-logos/loucos-por-pijamas.webp" alt="Loucos por Pijamas">
+    <img src="clients-logos/palacio_das_ferramentas_logo.jpg" alt="Palácio das Ferramentas">
+    <img src="clients-logos/perfetto.png" alt="Perfetto">
+    <img src="clients-logos/rafarillo.png" alt="Rafarillo">
+    <img src="clients-logos/LOGOMARCA-RAPHAEL-STEFFENS.pdf.png" alt="Raphael Steffens">
+    <img src="clients-logos/Syspro.png" alt="Syspro">
+
+    <img src="clients-logos/CS-Club.png" alt="CS-Club">
+    <img src="clients-logos/flow_card_logo.jpg" alt="Flow Card">
+    <img src="clients-logos/joy-to-joy.png" alt="Joy to Joy">
+    <img src="clients-logos/loucos-por-pijamas.webp" alt="Loucos por Pijamas">
+    <img src="clients-logos/palacio_das_ferramentas_logo.jpg" alt="Palácio das Ferramentas">
+    <img src="clients-logos/perfetto.png" alt="Perfetto">
+    <img src="clients-logos/rafarillo.png" alt="Rafarillo">
+    <img src="clients-logos/LOGOMARCA-RAPHAEL-STEFFENS.pdf.png" alt="Raphael Steffens">
+    <img src="clients-logos/Syspro.png" alt="Syspro">
   </div>
 </div>
 </section>
@@ -654,27 +734,27 @@ body::after{
 <section id="retorno">
 <div class="container">
   <div class="retorno-grid">
-    <div>
+    <div class="retorno-header">
       <div class="section-badge" data-reveal>&#9679; RETORNO REAL</div>
       <h2 class="retorno-h2" data-reveal>Não criamos IA para impressionar.<br><span class="gradient-text">Criamos receita.</span></h2>
       <p class="retorno-desc" data-reveal>Nosso ecossistema entra onde existe impacto comercial direto: eliminar lead sem resposta, reduzir custo por aquisição e escalar o time sem contratar.</p>
     </div>
-    <div class="retorno-items">
-      <div class="retorno-item" data-reveal>
-        <div class="retorno-item-num">01</div>
-        <div class="retorno-item-title">Zero lead sem resposta</div>
+    <div class="retorno-metrics">
+      <div class="retorno-metric" data-reveal>
+        <div class="retorno-metric-value" data-count="0">0</div>
+        <div class="retorno-metric-label">Leads perdidos<br>por falta de resposta</div>
       </div>
-      <div class="retorno-item" data-reveal>
-        <div class="retorno-item-num">02</div>
-        <div class="retorno-item-title">Redução de CAC em até 30%</div>
+      <div class="retorno-metric" data-reveal>
+        <div class="retorno-metric-value" data-count="-30" data-suffix="%">-30%</div>
+        <div class="retorno-metric-label">Redução no custo<br>de aquisição (CAC)</div>
       </div>
-      <div class="retorno-item" data-reveal>
-        <div class="retorno-item-num">03</div>
-        <div class="retorno-item-title">+3x demos qualificadas</div>
+      <div class="retorno-metric" data-reveal>
+        <div class="retorno-metric-value" data-count="3" data-prefix="" data-suffix="x">3x</div>
+        <div class="retorno-metric-label">Mais demos<br>qualificadas</div>
       </div>
-      <div class="retorno-item" data-reveal>
-        <div class="retorno-item-num">04</div>
-        <div class="retorno-item-title">Time focado só em fechar</div>
+      <div class="retorno-metric" data-reveal>
+        <div class="retorno-metric-value" data-count="100" data-suffix="%">100%</div>
+        <div class="retorno-metric-label">Time focado<br>só em fechar</div>
       </div>
     </div>
   </div>
@@ -813,20 +893,78 @@ body::after{
 </div>
 </section>
 
-<!-- FRENTES -->
-<section id="frentes">
+<!-- TRACKING, WHATSAPP & DASHBOARDS -->
+<section id="tracking">
 <div class="container">
-  <div class="frentes-header" data-reveal>
-    <h2 class="frentes-h2">Onde o ecossistema LSC entra na sua operação.</h2>
-    <p class="frentes-desc">Mapeamos os gargalos comerciais, estimamos o retorno e implantamos em até 14 dias.</p>
+  <div class="tracking-header" data-reveal>
+    <div class="section-badge" style="color:rgba(255,255,255,0.4)">TRACKEAMENTO &middot; WHATSAPP &middot; DASHBOARDS</div>
+    <h2 class="tracking-h2">De onde veio, o que fez,<br><span class="gradient-text">se comprou.</span></h2>
+    <p class="tracking-sub">Unimos trackeamento, automação e dashboards para transformar dados em decisões comerciais mais inteligentes.</p>
   </div>
-  <div class="frentes-grid">
-    <div class="frente-item" data-reveal><div class="frente-num">01</div><div class="frente-title">Atendimento omnichannel</div><div class="frente-desc">WhatsApp, Instagram, Facebook e Webchat com IA unificada.</div></div>
-    <div class="frente-item" data-reveal><div class="frente-num">02</div><div class="frente-title">Qualificação e pipeline</div><div class="frente-desc">Leads classificados e distribuídos automaticamente por score.</div></div>
-    <div class="frente-item" data-reveal><div class="frente-num">03</div><div class="frente-title">Campanhas e reativação</div><div class="frente-desc">Disparos segmentados por comportamento via LSC Pulse.</div></div>
-    <div class="frente-item" data-reveal><div class="frente-num">04</div><div class="frente-title">GTM e atribuição</div><div class="frente-desc">Rastreamento completo do clique até o fechamento.</div></div>
-    <div class="frente-item" data-reveal><div class="frente-num">05</div><div class="frente-title">Integração com CRM/ERP</div><div class="frente-desc">Conexão com HubSpot, Pipedrive, Salesforce e sistemas legados.</div></div>
-    <div class="frente-item" data-reveal><div class="frente-num">06</div><div class="frente-title">Dashboards e performance</div><div class="frente-desc">Dados de mídia, atendimento e vendas em tempo real.</div></div>
+
+  <div class="tracking-grid">
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+      <h3 class="tracking-card-title">Análise e melhoria do GTM</h3>
+      <p class="tracking-card-desc">Análise completa do Google Tag Manager: corrigimos eventos, variáveis e acionadores para que Meta Ads, GA4 e Google Ads recebam dados confiáveis de visitas, carrinhos, checkouts e compras.</p>
+    </div>
+
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3 class="tracking-card-title">Melhoria dos dados para campanhas</h3>
+      <p class="tracking-card-desc">Com trackeamento bem configurado, as plataformas entendem melhor quem tem intenção de compra — campanhas mais eficientes, públicos qualificados e conversões otimizadas.</p>
+    </div>
+
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      <h3 class="tracking-card-title">Trackeamento de WhatsApp</h3>
+      <p class="tracking-card-desc">Rastreamos cliques, respostas, retornos ao site, carrinhos e compras via WhatsApp. Tudo enviado automaticamente para um banco de dados, conectando atendimento e vendas.</p>
+    </div>
+
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+      <h3 class="tracking-card-title">Dashboard personalizado</h3>
+      <p class="tracking-card-desc">Visitantes, leads, origem dos acessos, produtos mais vistos, vendas, receita, ticket médio, taxa de conversão, desempenho do WhatsApp e resultado por canal — tudo em um painel.</p>
+    </div>
+
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+      <h3 class="tracking-card-title">Públicos e eventos para Meta Ads</h3>
+      <p class="tracking-card-desc">Criamos públicos no Meta Ads com base nas interações reais: quem chamou no WhatsApp, respondeu, acessou o site, adicionou ao carrinho ou comprou. Eventos configurados para otimizar campanhas.</p>
+    </div>
+
+    <div class="tracking-card" data-reveal>
+      <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <h3 class="tracking-card-title">Entrega completa</h3>
+      <p class="tracking-card-desc">Estruturamos todo o caminho dos dados: site, WhatsApp, banco de dados, tratamento e dashboard final. O objetivo: transformar interações em informação útil para vender com previsibilidade.</p>
+    </div>
+
+    <div class="tracking-card featured" data-reveal>
+      <div class="tracking-featured-inner">
+        <div>
+          <h3 class="tracking-card-title" style="font-size:22px;margin-bottom:14px">O que o cliente ganha</h3>
+          <p class="tracking-card-desc" style="font-size:15px">Uma visão completa da jornada de compra — mais controle, mais clareza e mais inteligência para investir melhor em mídia, atendimento e vendas.</p>
+        </div>
+        <div>
+          <div class="tracking-benefit">
+            <div class="tracking-benefit-icon">&#10003;</div>
+            <p class="tracking-benefit-text"><strong>Quais campanhas</strong> trazem os melhores usuários</p>
+          </div>
+          <div class="tracking-benefit">
+            <div class="tracking-benefit-icon">&#10003;</div>
+            <p class="tracking-benefit-text"><strong>Quais produtos</strong> geram mais interesse</p>
+          </div>
+          <div class="tracking-benefit">
+            <div class="tracking-benefit-icon">&#10003;</div>
+            <p class="tracking-benefit-text"><strong>Como o WhatsApp</strong> participa das vendas</p>
+          </div>
+          <div class="tracking-benefit">
+            <div class="tracking-benefit-icon">&#10003;</div>
+            <p class="tracking-benefit-text"><strong>Onde estão</strong> as oportunidades de melhoria</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -865,9 +1003,9 @@ body::after{
       <h2 class="garantia-h2">Cresça o uso conforme o retorno aparece.</h2>
     </div>
     <div class="garantia-pillars">
-      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128202;</div><div class="garantia-pillar-title">ROI primeiro</div><p class="garantia-pillar-desc">Priorizamos onde o impacto comercial é mais claro.</p></div>
-      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128200;</div><div class="garantia-pillar-title">Uso mensurável</div><p class="garantia-pillar-desc">Cada automação tem volume, custo e resultado acompanhados.</p></div>
-      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon">&#128640;</div><div class="garantia-pillar-title">Escala controlada</div><p class="garantia-pillar-desc">A operação cresce conforme o retorno se comprova.</p></div>
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="garantia-pillar-title">ROI primeiro</div><p class="garantia-pillar-desc">Priorizamos onde o impacto comercial é mais claro.</p></div>
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div><div class="garantia-pillar-title">Uso mensurável</div><p class="garantia-pillar-desc">Cada automação tem volume, custo e resultado acompanhados.</p></div>
+      <div class="garantia-pillar" data-reveal><div class="garantia-pillar-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><div class="garantia-pillar-title">Escala controlada</div><p class="garantia-pillar-desc">A operação cresce conforme o retorno se comprova.</p></div>
     </div>
   </div>
 </div>
@@ -973,7 +1111,7 @@ body::after{
         <a href="#" class="footer-social" aria-label="Instagram"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
       </div>
     </div>
-    <div class="footer-col"><div class="footer-col-title">Ecossistema</div><a href="#retorno">Solução</a><a href="#quebra">Como Funciona</a><a href="#cases">Resultados</a><a href="#frentes">Integrações</a><a href="#faq">FAQ</a></div>
+    <div class="footer-col"><div class="footer-col-title">Ecossistema</div><a href="#retorno">Solução</a><a href="#quebra">Como Funciona</a><a href="#cases">Resultados</a><a href="#tracking">Tracking</a><a href="#faq">FAQ</a></div>
     <div class="footer-col"><div class="footer-col-title">Suporte</div><a href="#">Central de Suporte</a><a href="#">Documentação</a><a href="#">Status do Sistema</a><a href="#">Abrir Chamado</a></div>
     <div class="footer-col"><div class="footer-col-title">Contato</div><a href="mailto:contato@leadsmartconnect.com.br">contato@leadsmartconnect.com.br</a><a href="tel:+5516993750644">+55 (16) 99375-0644</a><a href="#">Franca — São Paulo</a></div>
   </div>
@@ -1182,28 +1320,38 @@ document.querySelectorAll('.faq-question').forEach(btn => {
   });
 });
 
-// ═══════════════════════ FRENTES STAGGER ═══════════════════════
-gsap.fromTo('.frente-item', { opacity: 0, y: 30 }, {
-  opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-  stagger: { amount: 0.6, grid: [2, 3], from: 'start' },
-  scrollTrigger: { trigger: '.frentes-grid', start: 'top 85%' },
-});
-
 // ═══════════════════════ TIMELINE STAGGER ═══════════════════════
 gsap.fromTo('.timeline-node', { opacity: 0, y: 40 }, {
   opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.2,
   scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
 });
 
+// ═══════════════════════ COUNT-UP ANIMATION ═══════════════════════
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const obj = { val: 0 };
+  gsap.to(obj, {
+    val: target,
+    duration: 2,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+    onUpdate: () => {
+      el.textContent = prefix + Math.round(obj.val) + suffix;
+    }
+  });
+});
+
 // ═══════════════════════ HERO STARS & PARTICLES ═══════════════════════
-(function initParticles() {
+(function initHeroCanvas() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let w, h, dpr;
   let mouseX = 0.5, mouseY = 0.5;
-  const particles = [];
   const stars = [];
+  const particles = [];
   const CONNECTION_DIST = 150;
 
   function resize() {
@@ -1270,7 +1418,7 @@ gsap.fromTo('.timeline-node', { opacity: 0, y: 40 }, {
 
   function init() {
     resize();
-    particles.length = 0; stars.length = 0;
+    stars.length = 0; particles.length = 0;
     for (let i = 0; i < 100; i++) stars.push(new Star());
     for (let i = 0; i < 55; i++) particles.push(new Particle());
   }
