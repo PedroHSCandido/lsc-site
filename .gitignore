@@ -3,6 +3,7 @@ node_modules/
 # Screenshots de teste
 *.png
 !Logo/*.png
+!clients-logos/*.png
 package.json
 package-lock.json
 test-hero.js
