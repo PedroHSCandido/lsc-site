@@ -351,6 +351,14 @@ body::after{
 }
 @keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.2)}50%{box-shadow:0 0 0 8px rgba(34,197,94,0)}}
 
+.mock-app{background:var(--bg-white);border:1px solid var(--border-light);border-radius:16px;padding:24px;overflow:hidden}
+.mock-app-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border-light);
+}
+.mock-app-brand{font-family:'Sora',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.08em;color:var(--purple)}
+.mock-app-badge{font-size:13px;font-weight:600;color:#f59e0b;background:rgba(245,158,11,0.1);padding:4px 10px;border-radius:8px}
+
 /* ═══════════════════════ CASES ═══════════════════════ */
 #cases{background:var(--bg-page);padding:88px 0}
 .cases-header{text-align:center;max-width:600px;margin:0 auto 56px}
@@ -868,6 +876,7 @@ body::after{
     <button class="tab-btn" data-tab="tab3"><span class="tab-btn-num">03</span>Campanhas</button>
     <button class="tab-btn" data-tab="tab4"><span class="tab-btn-num">04</span>Rastreamento</button>
     <button class="tab-btn" data-tab="tab5"><span class="tab-btn-num">05</span>Alerta</button>
+    <button class="tab-btn" data-tab="tab6"><span class="tab-btn-num">06</span>App Próprio</button>
   </div>
 
   <div class="tab-panel active" id="tab1">
@@ -934,6 +943,24 @@ body::after{
         <div class="mock-notif-title">Decisão necessária</div>
         <div class="mock-notif-body">Aprovar proposta #4831</div>
         <div class="mock-notif-badge">&#10003; APROVADO</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab6">
+    <div>
+      <h3 class="tab-title">Sua marca, seu app, sua base.</h3>
+      <p class="tab-desc">Aplicativo próprio com a identidade da sua empresa. Catálogo, notificações push, programa de fidelidade e canal direto com o cliente — sem depender de marketplace.</p>
+    </div>
+    <div class="tab-mockup">
+      <div class="mock-app">
+        <div class="mock-app-header">
+          <span class="mock-app-brand">SUA MARCA</span>
+          <span class="mock-app-badge">4.8 &#9733;</span>
+        </div>
+        <div class="mock-row"><span class="mock-name">&#128276; Push: Oferta VIP</span><span class="mock-value">32% abertura</span></div>
+        <div class="mock-row"><span class="mock-name">&#128722; Catálogo ativo</span><span class="mock-value">148 produtos</span></div>
+        <div class="mock-row"><span class="mock-name">&#127775; Fidelidade</span><span class="mock-value">890 membros</span></div>
       </div>
     </div>
   </div>
