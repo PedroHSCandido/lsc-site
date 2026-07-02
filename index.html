@@ -189,12 +189,11 @@ body::after{
 .hero-visual{position:relative;min-height:480px;display:flex;align-items:center;justify-content:center}
 .hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
 
-.scroll-indicator{
-  text-align:center;margin-top:72px;font-size:11px;letter-spacing:0.15em;
-  text-transform:uppercase;color:rgba(255,255,255,0.25);position:relative;z-index:2;
-  animation:scrollBounce 2.5s ease-in-out infinite;
+/* ═══════════════════════ INLINE CTA BANNER ═══════════════════════ */
+.inline-cta{
+  text-align:center;padding:40px 24px;
 }
-@keyframes scrollBounce{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(8px);opacity:.5}}
+.inline-cta .btn-primary{font-size:16px;padding:16px 32px}
 
 /* ═══════════════════════ LOGOS ═══════════════════════ */
 #logos{
@@ -218,7 +217,7 @@ body::after{
 .logos-track:hover{animation-play-state:paused}
 .logos-track img{
   height:56px;width:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.45;
+  filter:grayscale(1);opacity:.7;
   mix-blend-mode:multiply;
   transition:opacity .3s,filter .3s;
 }
@@ -718,7 +717,7 @@ body::after{
     <a href="#quebra">Como Funciona</a>
     <a href="#cases">Resultados</a>
     <a href="#faq">FAQ</a>
-    <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary nav-cta">Falar com um Especialista</a>
+    <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary nav-cta">Agendar diagnóstico gratuito</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
 </div>
@@ -732,23 +731,22 @@ body::after{
 <div class="container">
   <div class="hero-grid">
     <div>
-      <div class="hero-eyebrow">Ecossistema de IA Comercial</div>
-      <h1 class="hero-title" data-splitting>Seu time pra estratégia. IA pra nunca perder um lead.</h1>
-      <p class="hero-sub">Atendimento automático que não perde lead, campanhas que custam menos por conversão e rastreamento de ponta a ponta — uma operação que fecha mais.</p>
+      <div class="hero-eyebrow">Para times comerciais B2B que perdem leads por lentidão</div>
+      <h1 class="hero-title" data-splitting>Seus leads respondem em segundos. Seu time só entra pra fechar.</h1>
+      <p class="hero-sub">IA que atende, qualifica e agenda no WhatsApp 24/7 — com rastreamento de ponta a ponta pra você saber exatamente o que gerou cada venda.</p>
       <div class="hero-ctas">
-        <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary">Falar com um Especialista &rarr;</a>
-        <a href="#quebra" class="btn-glass">Como Funciona</a>
+        <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary">Agendar diagnóstico gratuito &rarr;</a>
+        <a href="#quebra" class="btn-glass">Ver como funciona</a>
       </div>
       <div class="hero-proof">
         <span class="hero-proof-dot"></span>
-        +47 operações já automatizadas
+        +47 empresas B2B atendidas &middot; Resposta média: &lt;30s &middot; 3x mais demos qualificadas
       </div>
     </div>
     <div class="hero-visual">
       <canvas class="hero-canvas" id="heroCanvas"></canvas>
     </div>
   </div>
-  <div class="scroll-indicator">ROLAR &darr;</div>
 </div>
 </section>
 
@@ -813,6 +811,10 @@ body::after{
   </div>
 </div>
 </section>
+
+<div class="inline-cta" data-reveal>
+  <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary">Agendar diagnóstico gratuito &rarr;</a>
+</div>
 
 <!-- FEATURES / TABS -->
 <section id="quebra">
@@ -946,74 +948,78 @@ body::after{
 </div>
 </section>
 
+<div class="inline-cta" data-reveal>
+  <a href="https://api.whatsapp.com/send/?phone=5516993750644" class="btn-primary">Quero um diagnóstico gratuito &rarr;</a>
+</div>
+
 <!-- TRACKING, WHATSAPP & DASHBOARDS -->
 <section id="tracking">
 <div class="container">
   <div class="tracking-header" data-reveal>
-    <div class="section-badge" style="color:rgba(255,255,255,0.4)">TRACKEAMENTO &middot; WHATSAPP &middot; DASHBOARDS</div>
+    <div class="section-badge" style="color:rgba(255,255,255,0.4)">RASTREAMENTO COMERCIAL</div>
     <h2 class="tracking-h2">De onde veio, o que fez,<br><span class="gradient-text">se comprou.</span></h2>
-    <p class="tracking-sub">Unimos trackeamento, automação e dashboards para transformar dados em decisões comerciais mais inteligentes.</p>
+    <p class="tracking-sub">Sem tracking, o Meta Ads otimiza para cliques. Com tracking, otimiza para quem realmente compra. Nós conectamos mídia, WhatsApp e CRM para você parar de adivinhar — e começar a escalar o que já funciona.</p>
   </div>
 
   <div class="tracking-grid">
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-      <h3 class="tracking-card-title">Análise e melhoria do GTM</h3>
-      <p class="tracking-card-desc">Análise completa do Google Tag Manager: corrigimos eventos, variáveis e acionadores para que Meta Ads, GA4 e Google Ads recebam dados confiáveis de visitas, carrinhos, checkouts e compras.</p>
+      <h3 class="tracking-card-title">Cada real de mídia rastreado até a venda</h3>
+      <p class="tracking-card-desc">GTM corrigido para que Meta Ads, GA4 e Google Ads recebam dados reais de compra — não só cliques. Eventos, variáveis e acionadores configurados de ponta a ponta.</p>
     </div>
 
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <h3 class="tracking-card-title">Melhoria dos dados para campanhas</h3>
-      <p class="tracking-card-desc">Com trackeamento bem configurado, as plataformas entendem melhor quem tem intenção de compra — campanhas mais eficientes, públicos qualificados e conversões otimizadas.</p>
+      <h3 class="tracking-card-title">Campanhas que encontram compradores, não curiosos</h3>
+      <p class="tracking-card-desc">Com dados limpos, as plataformas aprendem a otimizar para quem compra de verdade — e o perfil dos leads muda. Mais qualificados, menor CAC.</p>
     </div>
 
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-      <h3 class="tracking-card-title">Trackeamento de WhatsApp</h3>
-      <p class="tracking-card-desc">Rastreamos cliques, respostas, retornos ao site, carrinhos e compras via WhatsApp. Tudo enviado automaticamente para um banco de dados, conectando atendimento e vendas.</p>
+      <h3 class="tracking-card-title">WhatsApp que vira dado, não caixa preta</h3>
+      <p class="tracking-card-desc">Cliques, respostas, retornos ao site e compras via WhatsApp rastreados e enviados para seu banco de dados automaticamente. Conectando atendimento e vendas.</p>
     </div>
 
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
-      <h3 class="tracking-card-title">Dashboard personalizado</h3>
-      <p class="tracking-card-desc">Visitantes, leads, origem dos acessos, produtos mais vistos, vendas, receita, ticket médio, taxa de conversão, desempenho do WhatsApp e resultado por canal — tudo em um painel.</p>
+      <h3 class="tracking-card-title">Resposta em 10 segundos para qualquer pergunta comercial</h3>
+      <p class="tracking-card-desc">CPL, ROAS, ticket médio, conversão por canal, desempenho do WhatsApp — tudo num painel que seu time realmente usa. Sem esperar relatório do fim do mês.</p>
     </div>
 
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-      <h3 class="tracking-card-title">Públicos e eventos para Meta Ads</h3>
-      <p class="tracking-card-desc">Criamos públicos no Meta Ads com base nas interações reais: quem chamou no WhatsApp, respondeu, acessou o site, adicionou ao carrinho ou comprou. Eventos configurados para otimizar campanhas.</p>
+      <h3 class="tracking-card-title">Públicos baseados em quem comprou, não em quem curtiu</h3>
+      <p class="tracking-card-desc">Audiences no Meta Ads com dados reais: quem chamou no WhatsApp, respondeu, acessou o site, adicionou ao carrinho ou fechou. Campanhas otimizadas para compra real.</p>
     </div>
 
     <div class="tracking-card" data-reveal>
       <div class="tracking-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h3 class="tracking-card-title">Entrega completa</h3>
-      <p class="tracking-card-desc">Estruturamos todo o caminho dos dados: site, WhatsApp, banco de dados, tratamento e dashboard final. O objetivo: transformar interações em informação útil para vender com previsibilidade.</p>
+      <h3 class="tracking-card-title">Do clique à venda: sem ponto cego</h3>
+      <p class="tracking-card-desc">Site, WhatsApp, banco de dados, tratamento e dashboard. Estruturamos todo o caminho dos dados para você vender com previsibilidade.</p>
     </div>
 
     <div class="tracking-card featured" data-reveal>
       <div class="tracking-featured-inner">
         <div>
-          <h3 class="tracking-card-title" style="font-size:22px;margin-bottom:14px">O que o cliente ganha</h3>
-          <p class="tracking-card-desc" style="font-size:15px">Uma visão completa da jornada de compra — mais controle, mais clareza e mais inteligência para investir melhor em mídia, atendimento e vendas.</p>
+          <h3 class="tracking-card-title" style="font-size:22px;margin-bottom:14px">O impacto no seu comercial</h3>
+          <p class="tracking-card-desc" style="font-size:15px">Quando cada venda é rastreada até a origem, você descobre onde está o ROI real — e redireciona verba de canais que gastam para canais que vendem.</p>
         </div>
         <div>
           <div class="tracking-benefit">
             <div class="tracking-benefit-icon">&#10003;</div>
-            <p class="tracking-benefit-text"><strong>Quais campanhas</strong> trazem os melhores usuários</p>
+            <p class="tracking-benefit-text"><strong>Quais campanhas</strong> geram receita (não só cliques)</p>
           </div>
           <div class="tracking-benefit">
             <div class="tracking-benefit-icon">&#10003;</div>
-            <p class="tracking-benefit-text"><strong>Quais produtos</strong> geram mais interesse</p>
+            <p class="tracking-benefit-text"><strong>Quais canais</strong> merecem mais verba</p>
           </div>
           <div class="tracking-benefit">
             <div class="tracking-benefit-icon">&#10003;</div>
-            <p class="tracking-benefit-text"><strong>Como o WhatsApp</strong> participa das vendas</p>
+            <p class="tracking-benefit-text"><strong>Como o WhatsApp</strong> participa de cada venda</p>
           </div>
           <div class="tracking-benefit">
             <div class="tracking-benefit-icon">&#10003;</div>
-            <p class="tracking-benefit-text"><strong>Onde estão</strong> as oportunidades de melhoria</p>
+            <p class="tracking-benefit-text"><strong>Onde você está</strong> queimando orçamento sem retorno</p>
           </div>
         </div>
       </div>
@@ -1110,8 +1116,8 @@ body::after{
   <div class="cta-grid">
     <div data-reveal>
       <div class="section-badge" style="color:rgba(255,255,255,0.4)">DIAGNÓSTICO</div>
-      <h2 class="cta-h2">Comece pelo diagnóstico.</h2>
-      <p class="cta-sub">60 minutos com um especialista. Saia com escopo, prazo e ROI estimado. Sem custo, sem compromisso.</p>
+      <h2 class="cta-h2">Descubra quanto você perde por não rastrear.</h2>
+      <p class="cta-sub">60 minutos com um especialista. Saia com um mapa da sua operação, os gargalos que estão custando receita e um plano de ação. Sem custo.</p>
       <div class="cta-trust">
         <div class="cta-trust-item"><span class="cta-trust-check">&#10003;</span> Resposta em até 1 dia útil</div>
         <div class="cta-trust-item"><span class="cta-trust-check">&#10003;</span> Conversa direta com especialista</div>
@@ -1119,31 +1125,20 @@ body::after{
       </div>
     </div>
     <div data-reveal>
-      <form class="cta-form" onsubmit="return false;">
-        <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-input" placeholder="Como devemos te chamar"></div>
-        <div class="form-group"><label class="form-label">E-mail corporativo</label><input type="email" class="form-input" placeholder="voce@empresa.com.br"></div>
-        <div class="form-group"><label class="form-label">Empresa</label><input type="text" class="form-input" placeholder="Nome da empresa"></div>
-        <div class="form-group"><label class="form-label">Cargo</label><input type="text" class="form-input" placeholder="Sua função"></div>
-        <div class="form-group">
-          <label class="form-label">Faturamento anual</label>
-          <div class="form-radios">
-            <label class="form-radio"><input type="radio" name="revenue" value="1m">Até R$1M</label>
-            <label class="form-radio"><input type="radio" name="revenue" value="1-5m">R$1M–5M</label>
-            <label class="form-radio"><input type="radio" name="revenue" value="5-20m">R$5M–20M</label>
-            <label class="form-radio"><input type="radio" name="revenue" value="20m">+R$20M</label>
-          </div>
-        </div>
+      <form class="cta-form" id="ctaForm">
+        <div class="form-group"><label class="form-label">Nome</label><input type="text" class="form-input" id="formNome" placeholder="Como devemos te chamar" required></div>
+        <div class="form-group"><label class="form-label">WhatsApp</label><input type="tel" class="form-input" id="formWhatsApp" placeholder="(00) 00000-0000" required></div>
+        <div class="form-group"><label class="form-label">Empresa</label><input type="text" class="form-input" id="formEmpresa" placeholder="Nome da empresa" required></div>
         <div class="form-group">
           <label class="form-label">Segmento</label>
-          <select class="form-select">
+          <select class="form-select" id="formSegmento">
             <option value="" disabled selected>Selecione o segmento</option>
             <option>Imobiliária</option><option>Saúde</option><option>E-commerce</option>
             <option>B2B Serviços</option><option>Varejo</option><option>Indústria</option><option>Outro</option>
           </select>
         </div>
-        <div class="form-group"><label class="form-label">Principal dor</label><input type="text" class="form-input" placeholder="Em uma linha: qual operação você quer destravar?"></div>
-        <button type="submit" class="btn-primary form-submit" onclick="window.open('https://api.whatsapp.com/send/?phone=5516993750644','_blank')">Agendar diagnóstico &rarr;</button>
-        <div class="form-footer">Resposta em até 1 dia útil &middot; Conversa direta com especialista &middot; Sem custo</div>
+        <button type="submit" class="btn-primary form-submit">Quero meu diagnóstico &rarr;</button>
+        <div class="form-footer">Sem custo &middot; Sem compromisso &middot; Resposta em até 1 dia útil</div>
       </form>
     </div>
   </div>
@@ -1165,12 +1160,10 @@ body::after{
       </div>
     </div>
     <div class="footer-col"><div class="footer-col-title">Ecossistema</div><a href="#retorno">Solução</a><a href="#quebra">Como Funciona</a><a href="#cases">Resultados</a><a href="#tracking">Tracking</a><a href="#faq">FAQ</a></div>
-    <div class="footer-col"><div class="footer-col-title">Suporte</div><a href="#">Central de Suporte</a><a href="#">Documentação</a><a href="#">Status do Sistema</a><a href="#">Abrir Chamado</a></div>
-    <div class="footer-col"><div class="footer-col-title">Contato</div><a href="mailto:contato@leadsmartconnect.com.br">contato@leadsmartconnect.com.br</a><a href="tel:+5516993750644">+55 (16) 99375-0644</a><a href="#">Franca — São Paulo</a></div>
+    <div class="footer-col"><div class="footer-col-title">Contato</div><a href="mailto:contato@leadsmartconnect.com.br">contato@leadsmartconnect.com.br</a><a href="tel:+5516993750644">+55 (16) 99375-0644</a><a href="https://api.whatsapp.com/send/?phone=5516993750644">WhatsApp</a><span>Franca — São Paulo</span></div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 Lead Smart Connect. Todos os direitos reservados. &middot; CNPJ 57.869.805/0001-93</span>
-    <div class="footer-bottom-links"><a href="#">Política de Privacidade</a><a href="#">Termos de Uso</a></div>
   </div>
 </div>
 </footer>
@@ -1378,6 +1371,19 @@ gsap.fromTo('.timeline-node', { opacity: 0, y: 40 }, {
   opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.2,
   scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
 });
+
+// ═══════════════════════ CTA FORM → WHATSAPP ═══════════════════════
+const ctaForm = document.getElementById('ctaForm');
+if (ctaForm) {
+  ctaForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nome = document.getElementById('formNome').value.trim();
+    const empresa = document.getElementById('formEmpresa').value.trim();
+    const segmento = document.getElementById('formSegmento').value || '';
+    const msg = `Olá! Sou ${nome} da ${empresa}${segmento ? ' (' + segmento + ')' : ''}. Preenchi o formulário do site e gostaria de agendar um diagnóstico.`;
+    window.open('https://api.whatsapp.com/send/?phone=5516993750644&text=' + encodeURIComponent(msg), '_blank');
+  });
+}
 
 // ═══════════════════════ COUNT-UP ANIMATION ═══════════════════════
 document.querySelectorAll('[data-count]').forEach(el => {
